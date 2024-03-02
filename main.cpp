@@ -1,41 +1,26 @@
 #include <iostream>
 using namespace std;
 
-struct Student{
-    char name[25];
-    int score[3];
-};
-typedef struct Student
-        student;
-
-void f(void){
-    int n;
-    cin>>n;
-    student s[n];
-    int max[3]={0,0,0};
-    for(int i=0;i<n;i++){
-        cin>>s[i].name>>s[i].score[0]>>s[i].score[1]>>s[i].score[2];
-        for(int j=0;j<3;j++){
-            if(max[j]<s[i].score[j]){
-                max[j]=s[i].score[j];
+double _abs(double n){
+    if(n<0){
+        n*=-1.0;
+    }
+    return n;
+}
+ 
+int main(void){
+    int a=609222657,b=389387265,l=15,min_x=1,min_y=1;
+    cin>>a>>b>>l;
+    double r=(double)b/a;
+    for(int i=1;i<=l;i++){
+        for(int j=i*r-2;j<=i*r+2;j++){
+            if(_abs(r-(double)j/i)<_abs(r-(double)min_x/min_y)&&(double)j/i<=r){
+                min_x=j;
+                min_y=i;
             }
         }
     }
-    for(int i=0;i<n;i++){
-        if(s[i].score[0]==max[0]&&s[i].score[1]==max[1]&&s[i].score[1]==max[1]){
-            cout<<s[i].name<<endl;
-            return;
-        }
-    }
-    cout<<"NO NO.1"<<endl;
-    return ;
-}
-
-int main() {
-    int n=1;
-    cin>>n;
-    for(int i=0;i<n;i++){
-        f();
-    }
+    cout<<min_y<<" "<<min_x;
+    if(0)cout<<"\n"<<_abs((double)9/14-r)<<"  "<<_abs((double)7/11-r)<<endl;
     return 0;
-}
+} 
