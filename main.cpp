@@ -2,49 +2,70 @@
 #include <algorithm>
 #include <time.h>
 using namespace std;
+//最大子列和问题(数据结构课本)
+//max_subSequence
+#define MAXK 1000
 
-/*
-d1 = 149
-d2 = 149
-clk_tck = 1000
-(注：该结果随机器变化会有波动)
-*/
-
-clock_t start,stop;
-double d1,d2;
-
-int f1(int *num,int n){
-    if(n){
-        return f1(num,n-1)+num[n-1];
+void run(int(*f)(int*,int),int* num,int size,int case_n){
+    clock_t start,stop;
+    start=clock();
+    for(int i=0;i<MAXK;i++){
+        (*f)(num,size);
     }
-    return 0;
+    stop=clock();
+    cout<<"at "<<case_n<<": duration = "<<(double)stop-start<<"\n";
+    return ;
 }
 
-int f2(int *num,int n){
-    int sum=0;
-    for(int i=0;i<n;i++){
-        sum+=num[i];
+int f1(int* num,int size){
+    int thisSum=0,maxSum=0;
+    for(int i=0;i<size;i++){
+        for(int j=i;j<size;j++){
+            thisSum=0;
+            for(int k=i;k<j;k++){
+                thisSum+=num[k];
+            }
+            if(thisSum>maxSum){
+                maxSum=thisSum;
+            }
+        }
+        
     }
-    return sum;
+    return maxSum;
+}
+
+int f2(int* num,int size){
+    int thisSum=0,maxSum=0;
+    for(int i=0;i<size;i++){
+        thisSum=0;
+        for(int j=0;j<size;j++){
+            thisSum+=num[j];
+        }
+        if(thisSum>maxSum){
+            maxSum=thisSum;
+        }
+    }
+    return maxSum;
+}
+
+int f4(int* num,int size){
+    int thisSum=0,maxSum=0;
+    for(int i=0;i<size;i++){
+        thisSum+=num[i];
+        if(thisSum>maxSum){
+            maxSum=thisSum;
+        }else if(thisSum<0){
+            thisSum=0;
+        }
+    }
+    return maxSum;
+}
+
+//分而治之的代码懒得打了，先放在这里吧
+int max3(int a,int b,int c){
+    return a>b?a>c?a:c:b>c?b:c;
 }
 
 int main(void){
-    int n=1000;
-    int num[n];
-    for(int i=0;i<n;i++){
-        num[i]=i*2-3;
-    }
-    start=clock();
-    for(int i=0;i<90000;i++)int j=f1(num,n);
-    stop=clock();
-    d1=((double)(stop-start));
-    start=clock();
-    for(int i=0;i<90000;i++)int j=f2(num,n);
-    stop=clock();
-    d2=((double)(stop-start));
-    cout<<"d1 = "<<d1<<"\n";
-    cout<<"d2 = "<<d2<<"\n";
-    cout<<"clk_tck = "<<CLK_TCK<<"\n";
-
     return 0;
 } 
