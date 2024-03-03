@@ -1,28 +1,39 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
-void dfs(int *num,int *tag,int size,int k){
-    if(k==size){
-        for(int i=0;i<size;i++){
-            cout<<num[i]<<" ";
-        }
-        cout<<"\n";
-        return ;
-    }
-    for(int i=0;i<size;i++){
-        if(tag[i]==0){
-            num[k]=i+1;
-            tag[i]=1;
-            dfs(num,tag,size,k+1);
-            tag[i]=0;
-        }
-    }
+struct _bw{
+    int w;
+    int v;
+    double p;
+}bw[10001];
+
+int cmp(_bw a,_bw b){
+    return a.p>b.p;
 }
 
 int main(void){
-    int n=4;
-    cin>>n;
-    int a[n],b[n]={0};
-    dfs(a,b,n,0);
+    int n,c;
+    cin>>n>>c;
+    double ans=0;
+    for(int i=0;i<n;i++){
+        cin>>bw[i].w>>bw[i].v;
+        bw[i].p=(double)bw[i].v/(double)bw[i].w;
+    }
+    sort(bw,bw+n,cmp);
+    int i=0;
+    while(c>bw[i].w){
+        ans+=bw[i].v;
+        c-=bw[i].w;
+        i++;
+    }
+    ans+=bw[i].p*c;
+    printf("%.1lf",ans);
+    if(0){
+        cout<<endl;
+        for(int i=0;i<n;i++){
+            printf("--%d %d %.1lf\n",bw[i].w,bw[i].v,bw[i].p);
+        }
+    }
     return 0;
 } 
