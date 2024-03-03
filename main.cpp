@@ -1,29 +1,28 @@
 #include <iostream>
 using namespace std;
 
-int a[20],b[20]={0};
-int n;
-
-void dfs(int k){
-    if(k==n+1){
-        for(int i=1;i<=n;i++){
-            cout<<a[i]<<" ";
+void dfs(int *num,int *tag,int size,int k){
+    if(k==size){
+        for(int i=0;i<size;i++){
+            cout<<num[i]<<" ";
         }
         cout<<"\n";
-        return;
+        return ;
     }
-    for(int i=1;i<=n;i++){
-        if(b[i]==0){
-            a[k]=i;
-            b[i]=1;
-            dfs(k+1);
-            b[i]=0;
+    for(int i=0;i<size;i++){
+        if(tag[i]==0){
+            num[k]=i+1;
+            tag[i]=1;
+            dfs(num,tag,size,k+1);
+            tag[i]=0;
         }
     }
 }
 
 int main(void){
+    int n=4;
     cin>>n;
-    dfs(1);
+    int a[n],b[n]={0};
+    dfs(a,b,n,0);
     return 0;
 } 
