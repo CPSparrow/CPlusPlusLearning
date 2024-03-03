@@ -2,20 +2,24 @@
 #include <algorithm>
 using namespace std;
 
-int cmp(string a,string b){
-    return a>b;
-}
+/*
+result:
+9
+8
+7
+6
+5
+4
+3
+2
+1
+0
+*/
 
 int main(void){
-    string s[20];
-    int i=0;
-    do{
-        cin>>s[i];
-        i++;
-    }while(s[i-1]!="#");
-    sort(s,s+i-1,cmp);
+    int i=10;
     while(i--){
-        cout<<s[i-1]<<"\n";
-    }
+    	cout<<i<<"\n";
+	}
     return 0;
 } 
