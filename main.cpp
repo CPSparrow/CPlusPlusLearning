@@ -2,38 +2,20 @@
 #include <algorithm>
 using namespace std;
 
-struct _bw{
-    int w;
-    int v;
-    double p;
-}bw[10001];
-
-int cmp(_bw a,_bw b){
-    return a.p>b.p;
+int cmp(string a,string b){
+    return a>b;
 }
 
 int main(void){
-    int n,c;
-    cin>>n>>c;
-    double ans=0;
-    for(int i=0;i<n;i++){
-        cin>>bw[i].w>>bw[i].v;
-        bw[i].p=(double)bw[i].v/(double)bw[i].w;
-    }
-    sort(bw,bw+n,cmp);
+    string s[20];
     int i=0;
-    while(c>bw[i].w){
-        ans+=bw[i].v;
-        c-=bw[i].w;
+    do{
+        cin>>s[i];
         i++;
-    }
-    ans+=bw[i].p*c;
-    printf("%.1lf",ans);
-    if(0){
-        cout<<endl;
-        for(int i=0;i<n;i++){
-            printf("--%d %d %.1lf\n",bw[i].w,bw[i].v,bw[i].p);
-        }
+    }while(s[i-1]!="#");
+    sort(s,s+i-1,cmp);
+    while(i--){
+        cout<<s[i-1]<<"\n";
     }
     return 0;
 } 
