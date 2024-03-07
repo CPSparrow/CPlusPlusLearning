@@ -1,7 +1,9 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-
+/*
+删除了调试语句和example。有条件去学习memset。这个递推也可以自底向上反过来，更好。陈的代码已拍照
+*/
 void f(void);
 
 int main(void){
