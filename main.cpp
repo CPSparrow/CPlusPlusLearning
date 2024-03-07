@@ -3,34 +3,20 @@
 using namespace std;
 
 int main(void){
-    int m,n;
-    cin>>m>>n;
-    int a[n][n];
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            cin>>a[i][j];
+    int a,b,t=0,sum=0;
+    cin>>a>>b; 
+    for(int i=a;i<=b;i++){
+        sum+=i;
+        t++;
+        printf("%5d",i);
+        if(t%5==0){
+        	t=0;
+            cout<<"\n";
         }
     }
-    for(int j=0;j<m;j++){
-        //move
-        int t[n];
-        for(int i=0;i<n;i++){
-            t[i]=a[i][n-1];
-        }
-        for(int i=n-1;i>0;i--){
-            for(int k=0;k<n;k++){
-                a[k][i]=a[k][i-1];
-            }
-        }
-        for(int i=0;i<n;i++){
-            a[i][0]=t[i];
-        }
-    }
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            cout<<a[i][j]<<" ";
-        }
-        cout<<"\n";
-    }
+    if(t!=0){
+    	cout<<"\n";
+	}
+    cout<<"Sum = "<<sum<<flush;
     return 0;
 }
