@@ -1,71 +1,28 @@
 #include <iostream>
 #include <algorithm>
-#include <time.h>
 using namespace std;
-//最大子列和问题(数据结构课本)
-//max_subSequence
-#define MAXK 1000
-
-void run(int(*f)(int*,int),int* num,int size,int case_n){
-    clock_t start,stop;
-    start=clock();
-    for(int i=0;i<MAXK;i++){
-        (*f)(num,size);
-    }
-    stop=clock();
-    cout<<"at "<<case_n<<": duration = "<<(double)stop-start<<"\n";
-    return ;
-}
-
-int f1(int* num,int size){
-    int thisSum=0,maxSum=0;
-    for(int i=0;i<size;i++){
-        for(int j=i;j<size;j++){
-            thisSum=0;
-            for(int k=i;k<j;k++){
-                thisSum+=num[k];
-            }
-            if(thisSum>maxSum){
-                maxSum=thisSum;
-            }
-        }
-        
-    }
-    return maxSum;
-}
-
-int f2(int* num,int size){
-    int thisSum=0,maxSum=0;
-    for(int i=0;i<size;i++){
-        thisSum=0;
-        for(int j=0;j<size;j++){
-            thisSum+=num[j];
-        }
-        if(thisSum>maxSum){
-            maxSum=thisSum;
-        }
-    }
-    return maxSum;
-}
-
-int f4(int* num,int size){
-    int thisSum=0,maxSum=0;
-    for(int i=0;i<size;i++){
-        thisSum+=num[i];
-        if(thisSum>maxSum){
-            maxSum=thisSum;
-        }else if(thisSum<0){
-            thisSum=0;
-        }
-    }
-    return maxSum;
-}
-
-//分而治之的代码懒得打了，先放在这里吧
-int max3(int a,int b,int c){
-    return a>b?a>c?a:c:b>c?b:c;
-}
 
 int main(void){
+    int n=10;
+    cin>>n;
+    int a[25][25]={0};
+    for(int i=0;i<25;i++){
+        a[i][0]=a[i][i]=1;
+    }
+    for(int i=2;i<25;i++){
+        for(int j=1;j<i;j++){
+            a[i][j]=a[i-1][j]+a[i-1][j-1];
+        }
+    }
+    for(int i=1;i<n;i++){
+        for(int j=1;j<i;j++){
+            cout<<a[i-1][j-1]<<" ";
+        }
+        cout<<a[i-1][i-1]<<endl;
+    }
+    for(int j=1;j<n;j++){
+        cout<<a[n-1][j-1]<<" ";
+    }
+    cout<<a[n-1][n-1]<<flush;
     return 0;
-} 
+}
