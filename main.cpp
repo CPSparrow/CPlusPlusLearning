@@ -3,26 +3,34 @@
 using namespace std;
 
 int main(void){
-    int n=10;
-    cin>>n;
-    int a[25][25]={0};
-    for(int i=0;i<25;i++){
-        a[i][0]=a[i][i]=1;
-    }
-    for(int i=2;i<25;i++){
-        for(int j=1;j<i;j++){
-            a[i][j]=a[i-1][j]+a[i-1][j-1];
+    int m,n;
+    cin>>m>>n;
+    int a[n][n];
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>a[i][j];
         }
     }
-    for(int i=1;i<n;i++){
-        for(int j=1;j<i;j++){
-            cout<<a[i-1][j-1]<<" ";
+    for(int j=0;j<m;j++){
+        //move
+        int t[n];
+        for(int i=0;i<n;i++){
+            t[i]=a[i][n-1];
         }
-        cout<<a[i-1][i-1]<<endl;
+        for(int i=n-1;i>0;i--){
+            for(int k=0;k<n;k++){
+                a[k][i]=a[k][i-1];
+            }
+        }
+        for(int i=0;i<n;i++){
+            a[i][0]=t[i];
+        }
     }
-    for(int j=1;j<n;j++){
-        cout<<a[n-1][j-1]<<" ";
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cout<<a[i][j]<<" ";
+        }
+        cout<<"\n";
     }
-    cout<<a[n-1][n-1]<<flush;
     return 0;
 }
