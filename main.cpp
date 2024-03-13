@@ -1,64 +1,51 @@
-#include <iostream>
-#include <algorithm>
+#include<iostream>
+#include<string>
 using namespace std;
 
-struct Node{
-    int data;
-    struct Node *Next; 
-};
-typedef struct Node
-        node;
-typedef node*
-        NodePtr;
+const int N=210;
+int t,e[N],ne[N]={-1},head=-1,idx=0;
 
-//chen
-NodePtr creatList(int *num,int n){
-    NodePtr head,p,q;
-    head = new Node();
-    q=head;
-    for(int i=0;i<n;i++){
-        p=new node();
-        p->data=num[i];
-        q->Next=p;
-        q=p;
-    }
-    q->Next=NULL;
-    return head;
+void addToHead(int x){
+    e[idx]=x;
+    ne[idx]=head;
+    head=idx;
+    idx++;
 }
 
-//chen
-NodePtr insertList(NodePtr head,int x){
-    NodePtr q,p,s;
-    s=new node();
-    s->data=x,s->Next=NULL;
-    q=head,p->Next=NULL;
-    while (p!=NULL) {
-        if(p->data>=x){
-            break;
+void add(int k,int x){
+    e[idx]=x;
+    ne[idx]=ne[k];
+    ne[k]=idx;
+    idx++;
+}
+
+void deleteNode(int k){
+    ne[k]=ne[ne[k]];
+}
+
+int main()
+{
+    cin>>t;
+    int x;
+    for(int i=0;i<10;i++){
+        cin>>x;
+        if(i==0){
+            addToHead(x);
+        }else{
+            add(i-1,x);
         }
-        q=p;
-        p=p->Next;
     }
-    q->Next=s;
-    s->Next=p;
-    return head;
-}
-
-//chen
-void printList(NodePtr head){
-    //node_list with empty node
-    NodePtr p=head->Next;
-    while (p!=NULL) {
-        cout<<p->data<<"\n";
-        p=p->Next;
+    if(t==1){
+        head=ne[head];
+    }else{
+        deleteNode(t-2);
     }
-    return;
-}
-
-int main(void) {
-    int n=5;
-    int num[n]={1,2,3,4,5};
-    NodePtr p=creatList(num, n);
-    printList(p);
+    for(int i=head;i!=-1;i=ne[i]){
+        if(i==head){
+            cout<<e[i];
+        }else{
+            cout<<" "<<e[i];
+        }
+    }
     return 0;
 }
