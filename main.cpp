@@ -7,113 +7,52 @@ struct Node{
     int count;
     struct Node* next;
 };
+
 typedef struct Node
     node;
 typedef node*
-    NodePtr;
-  
-int _count=0;
-  
-//print from head to tail
-void printList(NodePtr head){
-    NodePtr p=head;
-    while(p!=NULL){
-        cout<<p->num<<" ";
-        p=p->next;
-    }
-    cout<<flush;
-}
-  
-//add node to head
-NodePtr addNode(NodePtr head,int n){
-    _count++;
-    NodePtr p=new node();
-    p->num=n;
-    p->next=head;
-    p->count=_count;
-    return p;
-}
-  
-//delete the i-th added node
-NodePtr deleteNode(NodePtr head,int n){
-    if(n==0||head->count==n){
-        head=head->next;
-        return head;
-    }
-    NodePtr p=head->next,q=head;
-    while(p->count!=n){
-        p=p->next;
-        q=q->next;
-    }
-    q->next=p->next;
-    return head;
-}
-  
-//insert a node after the i-th added node
-NodePtr insertNode(NodePtr head,int n,int num){
-    NodePtr p=head;
-    while(p->count!=n){
-        p=p->next;
-    }
-    NodePtr s=new node();
-    _count++;
-    s->num=num;
-    s->count=_count;
-    s->next=p->next;
-    p->next=s;
-    return head;
-}
-  
-/*
-H 9
-I 1 1
-D 1
-D 0
-H 6
-*/
+    nodePtr;
 
-NodePtr f(NodePtr head){
-    char s;
-    int n,m;
-    cin>>s;
-    switch(s){
-        case 'H':
-            cin>>n;
-            head=addNode(head,n);
-            break;
-        case 'I':
-            cin>>n>>m;
-            head=insertNode(head,n,m);
-            break;
-        case 'D':
-            cin>>n;
-            head=deleteNode(head,n);
-            break;
-        default:
-            break;
+void printList(nodePtr head){
+    nodePtr p=head;
+    while(p!=NULL){
+        cout<<p->num<<" "<<p->count<<"\n";
+        p=p->next;
+    }
+}
+
+nodePtr createList(nodePtr head,int n){
+    nodePtr p,q;
+    int num,count;
+    for(int i=0;i<n;i++){
+        cin>>num>>count;
+        p=new node();
+        p->num=num;
+        p->count=count;
+        p->next=NULL;
+        if(i==0){
+            head=p;
+            head->next=NULL;
+            q=p;
+        }else{
+            q->next=p;
+            q=p;
+        }
     }
     return head;
 }
-    
-/*int main(void){
-    NodePtr p = NULL;
-    p=addNode(p,9);
-    p=addNode(p,8);
-    p=addNode(p,7);
-    p=deleteNode(p,0);
-    p=addNode(p,6);
-    printList(p);
-    //cout<<"\n"<<_count<<flush;
-    return 0;
-}*/
+
+nodePtr addListToHead(nodePtr p1,nodePtr p2){
+    nodePtr head;
+    if(p1->count<p2->count){
+        nodePtr t=p1;
+        p1=p2;
+        p2=t;
+    }
+    return head;
+}
 
 int main(void){
-    int n;
-    NodePtr p = NULL;
-    cin>>n;
-    for(int i=0;i<n;i++){
-        p = f(p);
-    }
-    printList(p);
+    //
     return 0;
 }/**/
