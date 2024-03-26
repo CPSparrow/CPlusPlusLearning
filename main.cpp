@@ -1,30 +1,42 @@
 #include <iostream>
 using namespace std;
 
-void listMove(int *num, int size);
+typedef long long ll;
+ll n, k, cityPoint[100005] = {0}, s, x, ans = 0;
+int isCenter[100005] = {0};
+
+void ridRepeat()
+{
+    if (x == n && !isCenter[1]) {
+        ans -= cityPoint[x] * cityPoint[1];
+    }
+    if (x == 1 && !isCenter[n]) {
+        ans -= cityPoint[x] * cityPoint[n];
+    }
+    if (!isCenter[x + 1]) {
+        ans -= cityPoint[x] * cityPoint[x + 1];
+    }
+    if (!isCenter[x - 1]) {
+        ans -= cityPoint[x] * cityPoint[x - 1];
+    }
+}
 
 int main(void)
 {
-    int n = 5, m;
-    std::cin >> n >> m;
-    int num[n];
-    for (int i = 0; i < n; i++)
-        std::cin >> num[i];
-    for (int i = 0; i < m; i++) {
-        listMove(num, n);
+    std::cin >> n >> k;
+    for (int i = 1; i <= n; i++) {
+        std::cin >> cityPoint[i];
+        s = s + cityPoint[i];
+        ans += cityPoint[i - 1] * cityPoint[i];
     }
-    for (int i = 0; i < n - 1; i++) {
-        std::cout << num[i] << " ";
+    ans += cityPoint[1] * cityPoint[n];
+    while (k--) {
+        std::cin >> x;
+        isCenter[x] = 1;
+        s -= cityPoint[x];
+        ans += cityPoint[x] * s;
+        ridRepeat();
     }
-    std::cout << num[n - 1];
+    std::cout << ans << std::flush;
     return 0;
-} 
-
-void listMove(int *num, int size)
-{
-    int t = num[0];
-    for (int i = 0; i < size; i++) {
-        num[i] = num[i + 1];
-    }
-    num[size - 1] = t;
 }
